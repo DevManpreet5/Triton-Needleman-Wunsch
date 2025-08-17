@@ -172,7 +172,7 @@ def create_performance_table(results, save_path="triton_performance_table_amd.pn
     ax.axis('off')
     
     # Prepare data for table
-    headers = ['Test Case', 'Batch', 'SeqLen', 'Total Ops', 'PyTorch (s)', 'Triton (s)', 'Speedup', 'Throughput', 'GOPS']
+    headers = ['Test Case', 'Batch', 'SeqLen', 'Total Ops', 'PyTorch (s)', 'Triton (s)', 'Speedup']
     table_data = []
     
     for r in results:
@@ -183,9 +183,7 @@ def create_performance_table(results, save_path="triton_performance_table_amd.pn
             f"{r['total_ops']:,}",
             f"{r['pytorch_time']:.2f}",
             f"{r['triton_time']:.2f}",
-            f"{r['speedup']:.2f}",
-            f"{r['throughput']:.2f}",
-            f"{r['gops']:.2f}"
+            f"{r['speedup']:.2f}"
         ]
         table_data.append(row)
     
@@ -256,19 +254,20 @@ def benchmark_run():
         (1024, 512, "Long Sequences"),
     ]
     
-    print("testcase_name,batch_size,seqlen,total_ops,pytorch_time,triton_time,speedup,throughput,gops")
+    print("testcase_name,batch_size,seqlen,total_ops,pytorch_time,triton_time,speedup")
     
     results = []
     for batch_size, seq_len, name in test_cases:
         result = benchmarks(batch_size, seq_len, name, num_runs=10, warmup=3)
-        print(f"{result['testcase_name']},{result['batch_size']},{result['seqlen']},{result['total_ops']},{result['pytorch_time']:.6f},{result['triton_time']:.6f},{result['speedup']:.2f},{result['throughput']:.2f},{result['gops']:.2f}")
+        print(f"{result['testcase_name']},{result['batch_size']},{result['seqlen']},{result['total_ops']},{result['pytorch_time']:.6f},{result['triton_time']:.6f},{result['speedup']:.2f}")
         results.append(result)
     
     return results
 
 
 def main():
-    print("Needleman-Wunsch Algorithm Triton AMD")
+    """Main function to run verification and benchmarks"""
+    print("=== Needleman-Wunsch Algorithm: PyTorch vs Triton AMD ===")
     print(f"Device: {torch.cuda.get_device_name()}")
     print(f"Triton version: {triton.__version__}")
     print(f"PyTorch version: {torch.__version__}")
