@@ -297,7 +297,7 @@ def main():
     
     # # Create and save performance table
     # print("\n=== Creating Performance Table ===")
-    # create_performance_table(results)
+    create_performance_table(results)
     
     # Summary statistics
     speedups = [r['speedup'] for r in results]
