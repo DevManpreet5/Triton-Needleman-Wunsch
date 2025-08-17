@@ -237,7 +237,7 @@ def create_performance_table(results, save_path="triton_performance_table_amd.pn
     # Save the table
     plt.tight_layout()
     plt.savefig(save_path, dpi=300, bbox_inches='tight', facecolor='white')
-    print(f"Performance table saved as: {save_path}")
+    # print(f"Performance table saved as: {save_path}")
     
     return fig
 
