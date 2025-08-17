@@ -268,7 +268,6 @@ def benchmark_run():
 
 
 def main():
-    """Main function to run verification and benchmarks"
     print("Needleman-Wunsch Algorithm Triton AMD")
     print(f"Device: {torch.cuda.get_device_name()}")
     print(f"Triton version: {triton.__version__}")
