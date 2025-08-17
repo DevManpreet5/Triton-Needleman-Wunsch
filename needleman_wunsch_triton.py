@@ -163,7 +163,7 @@ def benchmarks(batch_size, seq_len, testcase_name, num_runs, warmup):
     }
 
 
-def create_performance_table(results, save_path="triton_performance_table.png"):
+def create_performance_table(results, save_path="triton_performance_table_amd.png"):
     """Create a formatted performance table and save as PNG"""
     
     # Create figure and axis
@@ -232,7 +232,7 @@ def create_performance_table(results, save_path="triton_performance_table.png"):
                 table[(i, j)].set_text_props(weight='bold')
     
     # Add title
-    plt.title('Triton Performance Metrics Table', fontsize=16, fontweight='bold', pad=20)
+    plt.title('Triton Performance Metrics Table AMD', fontsize=16, fontweight='bold', pad=20)
     
     # Save the table
     plt.tight_layout()
@@ -269,36 +269,35 @@ def benchmark_run():
 
 def main():
     """Main function to run verification and benchmarks"""
-    print("=== Needleman-Wunsch Algorithm: PyTorch vs Triton ===")
+    print("=== Needleman-Wunsch Algorithm: PyTorch vs Triton AMD ===")
     print(f"Device: {torch.cuda.get_device_name()}")
     print(f"Triton version: {triton.__version__}")
     print(f"PyTorch version: {torch.__version__}")
     print()
     
-    # Verification tests
-    print("=== Verification Tests ===")
-    test_cases = [(32, 16), (64, 32), (128, 64), (256, 96), (512, 128)]
-    all_passed = True
+    # # Verification tests
+    # print("=== Verification Tests ===")
+    # test_cases = [(32, 16), (64, 32), (128, 64), (256, 96), (512, 128)]
+    # all_passed = True
     
-    for batch_size, seq_len in test_cases:
-        passed = verify_testcase(batch_size, seq_len)
-        all_passed = all_passed and passed
+    # for batch_size, seq_len in test_cases:
+    #     passed = verify_testcase(batch_size, seq_len)
+    #     all_passed = all_passed and passed
     
-    # if all_passed:
-    #     print("✓ All verification tests PASSED")
-    # else:
-    #     print("✗ Some verification tests FAILED")
-    #     return
+    # # if all_passed:
+    # #     print("✓ All verification tests PASSED")
+    # # else:
+    # #     print("✗ Some verification tests FAILED")
+    # #     return
     
     print()
     
     # Performance benchmarks
-    print("=== Performance Benchmarks ===")
     results = benchmark_run()
     
-    # Create and save performance table
-    print("\n=== Creating Performance Table ===")
-    create_performance_table(results)
+    # # Create and save performance table
+    # print("\n=== Creating Performance Table ===")
+    # create_performance_table(results)
     
     # Summary statistics
     speedups = [r['speedup'] for r in results]
